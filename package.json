@@ -11,6 +11,7 @@
   "dependencies": {
     "@plasmicapp/loader-nextjs": "^1.0.393",
     "next": "14.2.4",
+    "plasmic-supabase": "file:../plasmic-supabase/plasmic-supabase-0.0.3.tgz",
     "react": "^18",
     "react-dom": "^18"
   },
