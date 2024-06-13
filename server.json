@@ -1,0 +1,46 @@
+{
+  "type": "div",
+  "key": null,
+  "ref": null,
+  "props": {
+    "className": "ρi ρcwjIe",
+    "children": {
+      "key": null,
+      "ref": null,
+      "props": {
+        "name": "home/country",
+        "data": {
+          "isValidating": true,
+          "mutationError": null,
+          "fetcherError": null,
+          "data": null,
+          "sort": {}
+        },
+        "children": [
+          null,
+          {
+            "key": null,
+            "ref": null,
+            "props": {},
+            "_owner": null,
+            "_store": {}
+          },
+          {
+            "key": null,
+            "ref": null,
+            "props": {},
+            "_owner": null,
+            "_store": {}
+          },
+          null,
+          null,
+          false
+        ]
+      },
+      "_owner": null,
+      "_store": {}
+    }
+  },
+  "_owner": null,
+  "_store": {}
+}

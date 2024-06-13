@@ -9,6 +9,8 @@ import {
   SupabaseStorageGetSignedUrl,
   SupabaseStorageGetSignedUrlMeta,
 } from "plasmic-supabase"
+import { TweetsProvider } from "./components/TweetsProvider";
+import { SimpleSupabase } from "./components/SimpleSupabase";
 
 export const PLASMIC = initPlasmicLoader({
   projects: [
@@ -28,3 +30,20 @@ PLASMIC.registerGlobalContext(SupabaseUserGlobalContext, SupabaseUserGlobalConte
 PLASMIC.registerComponent(SupabaseProvider, SupabaseProviderMeta);
 PLASMIC.registerComponent(SupabaseUppyUploader, SupabaseUppyUploaderMeta);
 PLASMIC.registerComponent(SupabaseStorageGetSignedUrl, SupabaseStorageGetSignedUrlMeta);
+
+PLASMIC.registerComponent(TweetsProvider, {
+  name: "TweetsProvider",
+  providesData: true,
+  props: {
+    children: "slot"
+  }
+})
+
+PLASMIC.registerComponent(SimpleSupabase, {
+  name: "SimpleSupabase",
+  providesData: true,
+  props: {
+    children: "slot",
+    queryName: 'string'
+  }
+})

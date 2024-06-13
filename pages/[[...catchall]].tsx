@@ -36,6 +36,7 @@ export default function PlasmicLoaderPage(props: {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  console.log('getStaticProps running')
   const { catchall } = context.params ?? {};
   const plasmicPath = typeof catchall === 'string' ? catchall : Array.isArray(catchall) ? `/${catchall.join('/')}` : '/';
   const plasmicData = await PLASMIC.maybeFetchComponentData(plasmicPath);
@@ -55,6 +56,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       <PlasmicComponent component={pageMeta.displayName} />
     </PlasmicRootProvider>
   );
+  console.log(JSON.stringify(queryCache))
   // Use revalidate if you want incremental static regeneration
   return { props: { plasmicData, queryCache }, revalidate: 60 };
 }
