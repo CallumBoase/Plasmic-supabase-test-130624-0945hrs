@@ -45,5 +45,14 @@ PLASMIC.registerComponent(SimpleSupabase, {
   props: {
     children: "slot",
     queryName: 'string'
+  },
+  refActions: {
+    addRow: {
+      description: 'Add a row',
+      argTypes: [
+        {name: 'rowForSupabase', type: 'object'},
+        {name: 'optimisticRow', type: 'object'}
+      ]
+    }
   }
 })
