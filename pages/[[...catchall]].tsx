@@ -17,6 +17,14 @@ export default function PlasmicLoaderPage(props: {
 }) {
   const { plasmicData, queryCache } = props;
   const router = useRouter();
+
+  React.useEffect(() => {
+    // Capture the client-side HTML after initial render
+    const clientHtml = document.documentElement.outerHTML;
+    console.log('USE EFFECT')
+    console.log(clientHtml)
+  }, []);
+
   if (!plasmicData || plasmicData.entryCompMetas.length === 0) {
     return <Error statusCode={404} />;
   }
