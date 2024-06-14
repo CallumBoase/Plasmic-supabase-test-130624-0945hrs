@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@plasmicapp/loader-nextjs": "^1.0.393",
+    "@supabase/ssr": "^0.3.0",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "use-deep-compare": "^1.2.1"
   },
   "devDependencies": {
     "@types/node": "^20",

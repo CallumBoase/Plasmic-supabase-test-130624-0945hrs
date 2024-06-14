@@ -3,7 +3,6 @@ import { DataProvider } from "@plasmicapp/loader-nextjs";
 
 import { createBrowserClient } from "@supabase/ssr";
 import { forwardRef, useCallback, useImperativeHandle } from "react";
-import { RunningCodeInNewContextOptions } from "vm";
 
 interface Actions {
   addRow(rowForSupabase: any, optimisticRow: any): void;
