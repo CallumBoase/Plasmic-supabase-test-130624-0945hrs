@@ -29,7 +29,7 @@ export const PLASMIC = initPlasmicLoader({
 // PLASMIC.registerGlobalContext(SupabaseUserGlobalContext, SupabaseUserGlobalContextMeta)
 
 //Register components
-// PLASMIC.registerComponent(SupabaseProvider, SupabaseProviderMeta);
+PLASMIC.registerComponent(SupabaseProvider, SupabaseProviderMeta);
 // PLASMIC.registerComponent(SupabaseUppyUploader, SupabaseUppyUploaderMeta);
 // PLASMIC.registerComponent(SupabaseStorageGetSignedUrl, SupabaseStorageGetSignedUrlMeta);
 
