@@ -142,6 +142,9 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
       //New client
       const supabase = createClient();
 
+      //Simulate 2s delay
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       //Build the query with dynamic filters that were passed as props to the component
       const supabaseQuery = buildSupabaseQueryWithDynamicFilters({
         supabase,
