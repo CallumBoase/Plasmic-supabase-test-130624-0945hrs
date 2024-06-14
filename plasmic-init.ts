@@ -2,12 +2,12 @@ import { initPlasmicLoader } from "@plasmicapp/loader-nextjs";
 import { 
   SupabaseProvider, 
   SupabaseProviderMeta,
-  SupabaseUserGlobalContext,
-  SupabaseUserGlobalContextMeta,
-  SupabaseUppyUploader,
-  SupabaseUppyUploaderMeta,
-  SupabaseStorageGetSignedUrl,
-  SupabaseStorageGetSignedUrlMeta,
+  // SupabaseUserGlobalContext,
+  // SupabaseUserGlobalContextMeta,
+  // SupabaseUppyUploader,
+  // SupabaseUppyUploaderMeta,
+  // SupabaseStorageGetSignedUrl,
+  // SupabaseStorageGetSignedUrlMeta,
 } from "plasmic-supabase"
 import { TweetsProvider } from "./components/TweetsProvider";
 import { SimpleSupabase } from "./components/SimpleSupabase";
@@ -24,12 +24,12 @@ export const PLASMIC = initPlasmicLoader({
 });
 
 //Register global context
-PLASMIC.registerGlobalContext(SupabaseUserGlobalContext, SupabaseUserGlobalContextMeta)
+// PLASMIC.registerGlobalContext(SupabaseUserGlobalContext, SupabaseUserGlobalContextMeta)
 
 //Register components
 PLASMIC.registerComponent(SupabaseProvider, SupabaseProviderMeta);
-PLASMIC.registerComponent(SupabaseUppyUploader, SupabaseUppyUploaderMeta);
-PLASMIC.registerComponent(SupabaseStorageGetSignedUrl, SupabaseStorageGetSignedUrlMeta);
+// PLASMIC.registerComponent(SupabaseUppyUploader, SupabaseUppyUploaderMeta);
+// PLASMIC.registerComponent(SupabaseStorageGetSignedUrl, SupabaseStorageGetSignedUrlMeta);
 
 PLASMIC.registerComponent(TweetsProvider, {
   name: "TweetsProvider",
