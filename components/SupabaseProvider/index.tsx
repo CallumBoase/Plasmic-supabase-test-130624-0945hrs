@@ -8,13 +8,21 @@ import React, {
 import { useDeepCompareMemo } from "use-deep-compare";
 
 import { DataProvider } from "@plasmicapp/loader-nextjs";
-import useSWR from "swr";
-import createClient from "../../utils/supabase/component";
+import { useMutablePlasmicQueryData } from "@plasmicapp/query";
+// import useSWR from "swr";
+// import createClient from "../../utils/supabase/component";
+import { createBrowserClient } from "@supabase/ssr";
 import getSortFunc, { type SortDirection } from "../../utils/getSortFunc";
 import buildSupabaseQueryWithDynamicFilters, {
   type Filter,
 } from "../../utils/buildSupabaseQueryWithDynamicFilters";
 import getErrMsg from "../../utils/getErrMsg";
+
+//An unrealistically simplified createClient without ref to cookies or local storage
+const createClient = () => createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 //Declare types
 type Row = {
@@ -158,7 +166,7 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
       error: rawFetcherErr,
       mutate,
       isValidating,
-    } = useSWR(`/${queryName}`, fetchData, {
+    } = useMutablePlasmicQueryData(`/${queryName}`, fetchData, {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       shouldRetryOnError: false,
