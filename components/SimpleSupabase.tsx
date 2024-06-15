@@ -60,6 +60,7 @@ export const SimpleSupabase = forwardRef<Actions, SimpleSupabaseProps>(
         const supabase = createClient();
         const { error } = await supabase.from('test_pub').insert(rowForSupabase);
         if (error) throw error;
+        //@ts-ignore
         return optimisticFunc(data, optimisticRow);
       },
       [data]
@@ -112,8 +113,10 @@ export const SimpleSupabase = forwardRef<Actions, SimpleSupabaseProps>(
         );
 
         //Run the mutation
+        //@ts-ignore
         mutate(addRow(rowForSupabase, optimisticRow, optimisticFunc), {
           populateCache: true,
+          //@ts-ignore
           optimisticData: optimisticFunc(data, optimisticRow),
         }).catch((err) => console.error(err));
       },
