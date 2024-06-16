@@ -29,7 +29,7 @@ type Row = {
   [key: string]: any;
 };
 
-type Rows = Row[] | null;
+type Rows = Row[] | null | undefined;
 
 type FetchData = () => Promise<Rows>;
 
@@ -107,8 +107,6 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
 
     //Setup state and memos
     const memoizedFilters = useDeepCompareMemo(() => filters, [filters]);
-    // const [data, setData] = useState<Rows>(null);
-    const [sortedData, setSortedData] = useState<Rows>(null);
     const [sortField, setSortField] = useState<string>(initialSortField);
     const [sortDirection, setSortDirection] =
       useState<SortDirection>(initialSortDirection);
@@ -148,6 +146,7 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
       if (error) {
         throw error;
       }
+      
       return data;
     }, [tableName, columns, memoizedFilters, disableFetchData]);
 
@@ -163,31 +162,11 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
       shouldRetryOnError: false,
     });
 
-    //When data or sorting changes, set sortedData
-    //This works better with opsimistic updates than directly sorting data in query / mutation functions
-    //Because the user may change sort order partway through async query/mutation causes glitches
-    //This takes care of sort automatically whenever data or sort changes, making it smooth & easy
-    useEffect(() => {
-      if (data) {
-        const newData = [...data];
-        newData.sort(getSortFunc(sortField, sortDirection));
-        setSortedData(newData);
-      }
-    }, [data, sortField, sortDirection]);
-
-    //When filters, tablename, columns or disableFetchData changes, refetch data
+    //When filters, tablename, columns, disableFetchData changes, refetch data
     useEffect(() => {
       console.log('refetching useffect');
       mutate().catch((err) => setMutationError(getErrMsg(err)));
     }, [memoizedFilters, tableName, columns, disableFetchData, mutate]);
-
-    //When data changes, set data
-    //In turn this will cause change to sortedData
-    // useEffect(() => {
-    //   if (fetchedData) {
-    //     setData(fetchedData);
-    //   }
-    // }, [fetchedData]);
 
     //When error changes from SWR, set fetcherError
     useEffect(() => {
@@ -612,7 +591,7 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
             isValidating: isValidating || forceValidating,
             mutationError,
             fetcherError,
-            data: forceNoData ? null : data,
+            data: forceNoData ? null : data?.sort(getSortFunc(sortField, sortDirection)),
             sort: {
               field: sortField,
               direction: sortDirection,
