@@ -107,7 +107,7 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
 
     //Setup state and memos
     const memoizedFilters = useDeepCompareMemo(() => filters, [filters]);
-    const [data, setData] = useState<Rows>(null);
+    // const [data, setData] = useState<Rows>(null);
     const [sortedData, setSortedData] = useState<Rows>(null);
     const [sortField, setSortField] = useState<string>(initialSortField);
     const [sortDirection, setSortDirection] =
@@ -118,18 +118,6 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
 
     //Error resulting from a mutation as opposed to SWR fetcher
     const [mutationError, setMutationError] = useState<string | null>(null);
-
-    //When data or sorting changes, set sortedData
-    //This works better with opsimistic updates than directly sorting data in query / mutation functions
-    //Because the user may change sort order partway through async query/mutation causes glitches
-    //This takes care of sort automatically whenever data or sort changes, making it smooth & easy
-    useEffect(() => {
-      if (data) {
-        const newData = [...data];
-        newData.sort(getSortFunc(sortField, sortDirection));
-        setSortedData(newData);
-      }
-    }, [data, sortField, sortDirection]);
 
     //Function that can be called to fetch data
     const fetchData: FetchData = useCallback(async () => {
@@ -165,7 +153,7 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
 
     //Fetch data using SWR
     const {
-      data: fetchedData,
+      data,
       error: rawFetcherErr,
       mutate,
       isValidating,
@@ -175,6 +163,18 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
       shouldRetryOnError: false,
     });
 
+    //When data or sorting changes, set sortedData
+    //This works better with opsimistic updates than directly sorting data in query / mutation functions
+    //Because the user may change sort order partway through async query/mutation causes glitches
+    //This takes care of sort automatically whenever data or sort changes, making it smooth & easy
+    useEffect(() => {
+      if (data) {
+        const newData = [...data];
+        newData.sort(getSortFunc(sortField, sortDirection));
+        setSortedData(newData);
+      }
+    }, [data, sortField, sortDirection]);
+
     //When filters, tablename, columns or disableFetchData changes, refetch data
     useEffect(() => {
       console.log('refetching useffect');
@@ -183,11 +183,11 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
 
     //When data changes, set data
     //In turn this will cause change to sortedData
-    useEffect(() => {
-      if (fetchedData) {
-        setData(fetchedData);
-      }
-    }, [fetchedData]);
+    // useEffect(() => {
+    //   if (fetchedData) {
+    //     setData(fetchedData);
+    //   }
+    // }, [fetchedData]);
 
     //When error changes from SWR, set fetcherError
     useEffect(() => {
@@ -608,11 +608,11 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
         <DataProvider
           name={queryName || "SupabaseProvider"}
           data={{
-            isLoading: (isValidating && !fetchedData) || forceLoading,
+            isLoading: (isValidating && !data) || forceLoading,
             isValidating: isValidating || forceValidating,
             mutationError,
             fetcherError,
-            data: forceNoData ? null : sortedData,
+            data: forceNoData ? null : data,
             sort: {
               field: sortField,
               direction: sortDirection,
@@ -620,7 +620,7 @@ export const SupabaseProvider = forwardRef<Actions, SupabaseProviderProps>(
           }}
         >
           {/*Loading state - validating before we initially have data*/}
-          {((isValidating && !fetchedData) || forceLoading) && loading}
+          {((isValidating && !data) || forceLoading) && loading}
 
           {/*Validating state - any time we are running mutate() to revalidate cache*/}
           {(isValidating || forceValidating) && validating}
