@@ -9,8 +9,6 @@ import { useDeepCompareMemo } from "use-deep-compare";
 
 import { DataProvider } from "@plasmicapp/loader-nextjs";
 import { useMutablePlasmicQueryData } from "@plasmicapp/query";
-// import useSWR from "swr";
-// import createClient from "../../utils/supabase/component";
 import { createBrowserClient } from "@supabase/ssr";
 import getSortFunc, { type SortDirection } from "../../utils/getSortFunc";
 import buildSupabaseQueryWithDynamicFilters, {
