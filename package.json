@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@plasmicapp/loader-nextjs": "^1.0.393",
+    "@plasmicapp/query": "^0.1.79",
     "next": "14.2.4",
-    "plasmic-supabase": "file:../plasmic-supabase/plasmic-supabase-0.0.3.tgz",
+    "plasmic-supabase-new-bundling-test": "file:../plasmic-supabase-new-bundling-test/plasmic-supabase-new-bundling-test-0.0.1.tgz",
     "react": "^18",
     "react-dom": "^18"
   },
